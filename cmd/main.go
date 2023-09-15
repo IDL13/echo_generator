@@ -19,6 +19,7 @@ func main() {
 
 	if *help {
 		handlers.Help()
+		os.Exit(1)
 	}
 
 	if *new != "default" {
