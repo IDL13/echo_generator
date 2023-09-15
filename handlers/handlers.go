@@ -16,7 +16,7 @@ func Help() {
 	fmt.Println(string(help))
 }
 
-func New(n string) {
+func CreateNewEchoServer(n string) {
 	err := os.Mkdir("cmd", 0777)
 	if err != nil {
 		panic(err)
@@ -84,8 +84,8 @@ func New(n string) {
 	}
 }
 
-func Git(g string) {
-	cmdEnv := func(cmd *exec.Cmd) {
+func ConnectGitRepository(g string) {
+	ConnectEnv := func(cmd *exec.Cmd) {
 		cmd.Stdout = os.Stdout
 		cmd.Stdin = os.Stdin
 		cmd.Stderr = os.Stderr
@@ -93,20 +93,20 @@ func Git(g string) {
 	}
 
 	cmd := exec.Command("git", "init")
-	cmdEnv(cmd)
+	ConnectEnv(cmd)
 
 	cmd = exec.Command("git", "add", "*")
-	cmdEnv(cmd)
+	ConnectEnv(cmd)
 
 	cmd = exec.Command("git", "commit", "-m", "first commit")
-	cmdEnv(cmd)
+	ConnectEnv(cmd)
 
 	cmd = exec.Command("git", "branch", "-M", "main")
-	cmdEnv(cmd)
+	ConnectEnv(cmd)
 
 	cmd = exec.Command("git", "remote", "add", "origin", "https://"+g)
-	cmdEnv(cmd)
+	ConnectEnv(cmd)
 
 	cmd = exec.Command("git", "push", "-u", "origin", "main")
-	cmdEnv(cmd)
+	ConnectEnv(cmd)
 }

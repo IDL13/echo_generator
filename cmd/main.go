@@ -37,7 +37,7 @@ func main() {
 			panic(err)
 		}
 
-		cmdEnv := func(cmd *exec.Cmd) {
+		ConnectEnv := func(cmd *exec.Cmd) {
 			cmd.Stdout = os.Stdout
 			cmd.Stdin = os.Stdin
 			cmd.Stderr = os.Stderr
@@ -45,12 +45,12 @@ func main() {
 		}
 
 		cmd := exec.Command("go", "mod", "init", *new)
-		cmdEnv(cmd)
+		ConnectEnv(cmd)
 
 		cmd = exec.Command("go", "get", "github.com/labstack/echo/v4")
-		cmdEnv(cmd)
+		ConnectEnv(cmd)
 
-		handlers.New(*new)
+		handlers.CreateNewEchoServer(*new)
 
 		if *git {
 			var g string
@@ -63,8 +63,7 @@ func main() {
 				panic(err)
 			}
 
-			handlers.Git(g)
+			handlers.ConnectGitRepository(g)
 		}
 	}
-
 }
