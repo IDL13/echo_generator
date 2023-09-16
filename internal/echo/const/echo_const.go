@@ -1,6 +1,6 @@
-package handlers
+package _const
 
-const Cmd_app = `package main
+const CmdApp = `package main
 
 import (
 	"log"
@@ -12,33 +12,29 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	a.Run()
 }
 `
 
-const Internal_app = `package app
+const InternalApp = `package app
 
 import (
 	"fmt"
 
-	handler "%s/internal/handlers"
+	handler "%s/internal/internal"
 	"github.com/labstack/echo/v4"
 )
 
 type App struct {
 	h    *handler.Handler
-	echo *echo.Echo
+	echo *echo.echo
 }
 
 func New() (*App, error) {
 	a := &App{}
-
 	a.h = handler.New()
 	a.echo = echo.New()
-
 	a.echo.GET("/", a.h.StartHandler)
-
 	return a, nil
 }
 
@@ -47,7 +43,7 @@ func (a *App) Run() {
 	a.echo.Logger.Fatal(a.echo.Start(":8080"))
 }`
 
-const Internal_handlers = `package handler
+const InternalHandlers = `package handler
 
 import (
 	"log"

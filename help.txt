@@ -4,6 +4,6 @@
 
     git - добавить в git репозиторий
 
-    exeple:
+    example:
         - go run ./cmd/main.go -new "name your folder" -git "your git link"
 
