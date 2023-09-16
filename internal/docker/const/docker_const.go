@@ -1,4 +1,4 @@
-package __const
+package _const
 
 const DockerfileBase = `FROM golang:latest
 

@@ -5,6 +5,7 @@ import (
 	"codegenerator/internal/echo/echo_executor"
 	"codegenerator/internal/git/git_executor"
 	"codegenerator/internal/helper"
+	"codegenerator/internal/makefile/make_executor"
 	"codegenerator/pkg/parser"
 	"flag"
 	"fmt"
@@ -47,8 +48,11 @@ func main() {
 		ConnectEnv(cmd)
 		cmd = exec.Command("go", "get", "github.com/labstack/echo/v4")
 		ConnectEnv(cmd)
+		cmd = exec.Command("go", "get", "github.com/golang-migrate/migrate")
+		ConnectEnv(cmd)
 		echo_executor.CreateNewEchoServer(*flagsS[0])
 		docker_executor.CreateNewDockerDependencies()
+		make_executor.CreateNewMakefile()
 		if *flagsB[1] {
 			var g string
 			fmt.Print("Path to your git repository:")
