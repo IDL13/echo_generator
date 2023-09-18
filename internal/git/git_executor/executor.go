@@ -10,7 +10,7 @@ func ConnectGitRepository(g string) {
 		cmd.Stdout = os.Stdout
 		cmd.Stdin = os.Stdin
 		cmd.Stderr = os.Stderr
-		cmd.Run()
+		cmd.Run().Error()
 	}
 
 	cmd := exec.Command("git", "init")
