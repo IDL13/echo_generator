@@ -1,15 +1,16 @@
 package helper
 
 import (
+	"codegenerator/pkg/logger"
 	"fmt"
-	"log"
 	"os"
 )
 
 func Help() {
+	logg := logger.NewLogger("../../log.txt")
 	help, err := os.ReadFile("../helper.txt")
 	if err != nil {
-		log.Fatal(err)
+		logg.Write("Error from helper file", err)
 	}
 	fmt.Println(string(help))
 }
