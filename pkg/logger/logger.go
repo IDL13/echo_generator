@@ -18,7 +18,9 @@ func NewLogger(p string) *Logger {
 	if err != nil {
 		log.Fatal("Error from NewLogger constructor")
 	}
+
 	defer f.Close().Error()
+
 	return &Logger{
 		mutex: &sync.Mutex{},
 		file:  f,
@@ -31,21 +33,31 @@ func (l *Logger) Write(str string, inputError error) {
 	if err != nil {
 		panic(err)
 	}
+
 	l.wg.Add(1)
+
 	go func() {
 		l.mutex.Lock()
 		_, err := file.Write([]byte(str + "\t" + inputError.Error() + "\n"))
 		if err != nil {
 			panic(err)
 		}
+
 		l.mutex.Unlock()
 		file.Close().Error()
 		l.wg.Done()
 	}()
+
 	l.wg.Wait()
-	panic(inputError)
 }
 
 func (l *Logger) Delete() {
 	os.Remove(l.path).Error()
+}
+
+func (l *Logger) Err(str string) {
+	_, err := os.Stderr.WriteString(str)
+	if err != nil {
+		panic(err)
+	}
 }
