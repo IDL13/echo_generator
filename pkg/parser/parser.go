@@ -16,8 +16,10 @@ func NewParser(data interface{}) ([]*bool, []*string) {
 	var request []*Parser
 	reflection := reflect.TypeOf(data)
 	l := reflection.NumField()
+
 	for i := 0; i < l; i++ {
 		var p Parser
+
 		p.name = reflection.Field(i).Tag.Get("name")
 		p.usage = reflection.Field(i).Tag.Get("usage")
 		p.value = reflection.Field(i).Tag.Get("value")
@@ -25,6 +27,7 @@ func NewParser(data interface{}) ([]*bool, []*string) {
 	}
 	var flagsBool []*bool
 	var flagsString []*string
+
 	for i := range request {
 		if request[i].value == "false" || request[i].value == "true" {
 			f := flag.Bool(request[i].name, boolDecorate(request[i].value), request[i].usage)
@@ -34,6 +37,7 @@ func NewParser(data interface{}) ([]*bool, []*string) {
 			flagsString = append(flagsString, f)
 		}
 	}
+
 	return flagsBool, flagsString
 }
 
