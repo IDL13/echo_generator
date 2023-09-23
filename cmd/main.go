@@ -21,7 +21,7 @@ type Options struct {
 }
 
 func main() {
-	logg := logger.NewLogger("../log.txt")
+	logg := logger.NewLogger("log.txt")
 	flagsB, flagsS := parser.NewParser(Options{})
 
 	flag.Parse()
@@ -55,7 +55,7 @@ func main() {
 			cmd.Stdout = os.Stdout
 			cmd.Stdin = os.Stdin
 			cmd.Stderr = os.Stderr
-			cmd.Run().Error()
+			cmd.Run()
 		}
 
 		cmd := exec.Command("go", "mod", "init", *flagsS[0])

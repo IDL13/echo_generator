@@ -70,5 +70,5 @@ func CreateNewEchoServer(n string) {
 		logg.Write("Error from echo_executor file", err)
 	}
 
-	defer f.Close().Error()
+	defer f.Close()
 }

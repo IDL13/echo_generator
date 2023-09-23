@@ -35,5 +35,5 @@ func CreateNewDockerDependencies() {
 		logg.Write("Error from docker_executor file", err)
 	}
 
-	defer f.Close().Error()
+	defer f.Close()
 }

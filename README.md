@@ -19,5 +19,8 @@
   - flag -git "link" позволяет создать зависимости с учетом git акаунта
 
 **Пример использования:**
-
+  - Для Windows:
+      `make build_windows name_your_file`
+  - Для Linux:
+      `make build_linux name_your_file`
   

@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"sync"
@@ -19,7 +20,7 @@ func NewLogger(p string) *Logger {
 		log.Fatal("Error from NewLogger constructor")
 	}
 
-	defer f.Close().Error()
+	defer f.Close()
 
 	return &Logger{
 		mutex: &sync.Mutex{},
@@ -38,13 +39,15 @@ func (l *Logger) Write(str string, inputError error) {
 
 	go func() {
 		l.mutex.Lock()
-		_, err := file.Write([]byte(str + "\t" + inputError.Error() + "\n"))
+
+		errString := fmt.Sprintf(str+"\t"+"%v"+"\n", inputError)
+		_, err := file.Write([]byte(errString))
 		if err != nil {
 			panic(err)
 		}
 
 		l.mutex.Unlock()
-		file.Close().Error()
+		file.Close()
 		l.wg.Done()
 	}()
 
@@ -52,7 +55,7 @@ func (l *Logger) Write(str string, inputError error) {
 }
 
 func (l *Logger) Delete() {
-	os.Remove(l.path).Error()
+	os.Remove(l.path)
 }
 
 func (l *Logger) Err(str string) {

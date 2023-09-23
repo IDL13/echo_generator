@@ -1,0 +1,5 @@
+Error from main file	
+Error from main file	
+Error from main file	%!e(<nil>)
+Error from main file	<nil>
+Error from main file	EOF

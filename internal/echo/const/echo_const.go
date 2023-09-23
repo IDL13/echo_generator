@@ -27,7 +27,7 @@ import (
 
 type App struct {
 	h    *handler.Handler
-	echo *echo.echo
+	echo *echo.Echo
 }
 
 func New() (*App, error) {

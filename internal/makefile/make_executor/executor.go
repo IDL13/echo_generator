@@ -20,5 +20,5 @@ func CreateNewMakefile() {
 		logg.Write("Error from echo_executor file", err)
 	}
 
-	defer f.Close().Error()
+	defer f.Close()
 }
